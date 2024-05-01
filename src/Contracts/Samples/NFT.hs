@@ -6,6 +6,28 @@
 module Contracts.Samples.NFT where
 
 import Jambhala.Plutus
+    ( Value,
+      TokenName,
+      ScriptContext(ScriptContext),
+      liftCode,
+      flattenValue,
+      TxOutRef,
+      UntypedMintingPolicy,
+      AssetClass(AssetClass),
+      assetClassValue,
+      TxInInfo(TxInInfo),
+      ownCurrencySymbol,
+      getUnspentOutput,
+      ownUtxos,
+      applyCode,
+      makeIsDataIndexed,
+      makeLift,
+      compile,
+      mustSpendPubKeyOutput,
+      TxInfo(TxInfo, txInfoId, txInfoData, txInfoRedeemers,
+             txInfoSignatories, txInfoValidRange, txInfoWdrl, txInfoDCert,
+             txInfoMint, txInfoFee, txInfoOutputs, txInfoReferenceInputs,
+             txInfoInputs) )
 import Jambhala.Utils
 
 -- | Define a custom type to parameterize the minting policy:

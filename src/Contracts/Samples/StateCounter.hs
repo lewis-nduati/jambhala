@@ -4,7 +4,48 @@ import Contracts.Samples.NFT qualified as NFT
 import Control.Monad (replicateM_)
 import Data.Map qualified as Map
 import Jambhala.Plutus
+    ( UnsafeFromData(unsafeFromBuiltinData),
+      assetClass,
+      assetClassValueOf,
+      singleton,
+      findOwnInput,
+      getContinuingOutputs,
+      lovelaceValueOf,
+      applyCode,
+      liftCode,
+      compile,
+      Datum(Datum),
+      AssetClass(AssetClass),
+      ScriptContext,
+      TxInInfo(TxInInfo),
+      OutputDatum(OutputDatum),
+      TxOut(txOutDatum, txOutValue),
+      UntypedValidator )
 import Jambhala.Utils
+    ( ContractM,
+      scriptLookupsFor,
+      EmulatorTest,
+      Transaction(Tx, lookups, constraints),
+      ValidatorContract,
+      ValidatorEndpoints(GrabParam, grab, give, GiveParam),
+      andUtxos,
+      convertDecoratedTxOutDatum,
+      filterByFlatValue,
+      fromWallet,
+      getUtxosAt,
+      initEmulator,
+      logStr,
+      mustBeSpentWith,
+      mustPayScriptWithInlineDatum,
+      submitAndConfirm,
+      toWallet,
+      defExports,
+      export,
+      toJSONfile,
+      ExportTemplate(dataExports, emulatorTest),
+      JambExports,
+      mkUntypedValidator,
+      mkValidatorContract )
 
 -- 1. Declare Types
 

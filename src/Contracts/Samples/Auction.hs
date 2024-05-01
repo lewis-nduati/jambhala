@@ -1,4 +1,3 @@
--- 0. Create Module & Declare Imports
 module Contracts.Samples.Auction where
 
 import Contracts.Samples.NFT qualified as NFT

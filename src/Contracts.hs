@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedLists #-}
+{-# OPTIONS_GHC -Wno-unused-imports #-}
 
 {- HLINT ignore "Use empty" -}
 
@@ -20,15 +21,17 @@ import Contracts.Samples.SimpleGuessing qualified as SimpleGuessing
 import Contracts.Samples.SimpleTyped qualified as SimpleTyped
 import Contracts.Samples.StateCounter qualified as StateCounter
 import Contracts.Samples.Vesting qualified as Vesting
+import Contracts.ClimateJustice qualified as ClimateJustice 
 import Jambhala.CLI.Types (JambContracts)
+import qualified Contracts.Samples.Auction as ClimateJustice
 
 -- Add your contracts to the `contracts` list below, i.e.:
 --  [
 --    MyContract.exports
 --  ]
 contracts :: JambContracts
-contracts =
-  []
+contracts = 
+  [ClimateJustice.exports]
 
 samples :: JambContracts
 samples =

@@ -1,9 +1,9 @@
-module Main where
+module ClimateJustice where
 
 import Contracts (contracts, samples)
 import Jambhala.CLI (runJamb)
 
 main :: IO ()
-main = runJamb allContracts -- << replace `allContracts` with `contracts` to hide sample contracts
-  where
+main = runJamb contracts -- << replace `allContracts` with `contracts` to hide sample contracts
+  where 
     allContracts = contracts <> samples

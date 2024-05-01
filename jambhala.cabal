@@ -43,7 +43,8 @@ library
 
   -- Add new contracts here, i.e.:
   -- Contracts.MyContract
-
+    Contracts.ClimateJustice
+    
   other-modules:
     Contracts.Samples.Auction
     Contracts.Samples.CustomTyped

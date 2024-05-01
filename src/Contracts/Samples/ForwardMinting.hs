@@ -1,9 +1,69 @@
 -- 0. Create Module & Declare Imports
+{-# LANGUAGE GADTs #-}
 module Contracts.Samples.ForwardMinting where
 
 import Data.Map qualified as Map
 import Jambhala.Plutus
+    ( unstableMakeIsData,
+      ScriptContext(ScriptContext),
+      CurrencySymbol,
+      PubKeyHash,
+      stringToBuiltinByteString,
+      toPubKeyHash,
+      adaSymbol,
+      adaToken,
+      flattenValue,
+      valueOf,
+      findOwnInput,
+      lovelaceValueOf,
+      applyCode,
+      liftCode,
+      compile,
+      TxId(TxId),
+      TxOutRef(TxOutRef),
+      TokenName(TokenName),
+      Value,
+      TxInInfo(TxInInfo),
+      TxInfo(TxInfo, txInfoId, txInfoData, txInfoRedeemers,
+             txInfoSignatories, txInfoValidRange, txInfoWdrl, txInfoDCert,
+             txInfoMint, txInfoFee, txInfoOutputs, txInfoReferenceInputs,
+             txInfoInputs),
+      TxOut(..),
+      UntypedValidator )
 import Jambhala.Utils
+    ( ContractM,
+      scriptLookupsFor,
+      EmulatorTest,
+      MintingContract,
+      Transaction(Tx, lookups, constraints),
+      ValidatorContract,
+      ValidatorEndpoints(GrabParam, grab, give, GiveParam),
+      andUtxos,
+      convertDecoratedTxOutDatum,
+      filterByDatum,
+      fromWallet,
+      getOwnPKH,
+      getUtxosAt,
+      initEmulator,
+      logStr,
+      mustBeSpentWith,
+      mustMint,
+      mustPayPKH,
+      mustPayScriptWithDatum,
+      pkhForWallet,
+      submitAndConfirm,
+      toWallet,
+      unsafeMkTxOutRef,
+      defExports,
+      export,
+      toJSONfile,
+      ExportTemplate(emulatorTest, dataExports),
+      JambExports,
+      getFwdMintingPolicy,
+      getFwdMintingPolicyId,
+      mkUntypedValidator,
+      mkValidatorContract,
+      tokenNameToString )
 
 -- 1. Declare Types
 
@@ -17,12 +77,11 @@ type RedeemerCodeString = String
 type TicketPrice = Integer
 
 -- | Custom datum type.
-data TicketDatum = TicketDatum
-  { policySymbol :: CurrencySymbol
-  , redeemerCodeHash :: BuiltinByteString
-  , ticketPrice :: TicketPrice
-  }
-  -- Must be convertible to/from JSON due to reuse in off-chain emulator code
+data TicketDatum where
+  TicketDatum :: {policySymbol :: CurrencySymbol,
+                  redeemerCodeHash :: RedeemerCode,
+                  ticketPrice :: TicketPrice}
+                 -> TicketDatum
   deriving (Generic, FromJSON, ToJSON)
 
 unstableMakeIsData ''TicketDatum
@@ -127,7 +186,7 @@ instance ValidatorEndpoints TicketValidator where
     deriving (Generic, FromJSON, ToJSON)
   data GrabParam TicketValidator = Claim
     { hostPKH :: HostPKH
-    , redeemerCode :: BuiltinByteString
+    , redeemerCode :: RedeemerCode
     }
     deriving (Generic, FromJSON, ToJSON)
 
