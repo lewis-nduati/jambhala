@@ -202,8 +202,4 @@ mkWrappedProjectValidatorLucid pft pfd pc ctokcs ctoktn = wrapValidator $ mkProj
 projectsValidatorCodeLucid :: CompiledCode (BuiltinData -> BuiltinData -> BuiltinData -> BuiltinData -> BuiltinData -> BuiltinData -> BuiltinData -> BuiltinData -> ())
 projectsValidatorCodeLucid = $$(compile [|| mkWrappedProjectValidatorLucid ||])
 
-saveVal :: ProjectParams -> IO ()
-saveVal = Serialise.writeValidatorToFile "./assets/kuzaProjects.plutus" . typedProjectsValidator
 
-saveLucidCode :: IO ()
-saveLucidCode = Serialise.writeCodeToFile "./assets/lucidProjectsValidator.plutus" projectsValidatorCodeLucid
