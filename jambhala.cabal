@@ -40,11 +40,14 @@ library
     Jambhala.Plutus
     Jambhala.Utils
     Prelude
+    Utilities.Serialise
+    Utilities.Conversations
 
   -- Add new contracts here, i.e.:
   -- Contracts.MyContract
     Contracts.ClimateJustice
-    
+    Contracts.JusticeTokens
+
   other-modules:
     Contracts.Samples.Auction
     Contracts.Samples.CustomTyped

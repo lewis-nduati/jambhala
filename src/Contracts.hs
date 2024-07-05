@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedLists #-}
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 
 {- HLINT ignore "Use empty" -}

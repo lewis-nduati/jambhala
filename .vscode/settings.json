@@ -2,7 +2,7 @@
   "editor.minimap.enabled": false,
   "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "afterDelay",
   "haskell.formattingProvider": "fourmolu",
   "haskell.manageHLS": "PATH",
   "haskell.serverExecutablePath": "${workspaceFolder}/.vscode/haskell-language-server.link",

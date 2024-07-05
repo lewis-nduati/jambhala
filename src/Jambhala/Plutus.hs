@@ -1,4 +1,3 @@
--- Required for using `.\/` in schema type declaration
 {-# LANGUAGE TypeOperators #-}
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
 {-# OPTIONS_GHC -Wno-deprecations #-}
